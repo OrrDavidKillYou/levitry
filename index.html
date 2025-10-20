@@ -191,7 +191,7 @@
     let draggedImage = null;
     let touchStartX = 0;
     let touchStartY = 0;
-    const touchThreshold = 10; // Set threshold to 10px for more sensitivity (adjust as needed)
+    const touchThreshold = 1; // Set threshold to 1px for maximum sensitivity
 
     draggables.forEach(image => {
       image.addEventListener('dragstart', (e) => {
@@ -254,13 +254,4 @@
       // Avoid dropping on the tier's title
       if (tier.className.includes('tier') && tier !== event.target.closest('.tier')) return;
 
-      // If there is a dragged image, append it to the current tier
-      if (draggedImage) {
-        tier.appendChild(draggedImage);
-      }
-    }
-  </script>
-
-  <a href="index.html" class="niga">Back to Index</a>
-</body>
-</html>
+      //
