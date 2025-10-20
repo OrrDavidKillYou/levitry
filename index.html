@@ -154,104 +154,65 @@
   <h1>Levi Tier List</h1>
 
   <div class="image-container" id="imageList">
-    <img src="https://i.imgur.com/jNDl6cg.jpeg" alt="Image 1" id="image1" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/WC5rwH4.jpeg" alt="Image 2" id="image2" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/t20Ak5b.jpeg" alt="Image 3" id="image3" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/0cPP22V.png" alt="Image 4" id="image4" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/Y0xO0n8.png" alt="Image 5" id="image5" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/2lGPLGo.png" alt="Image 6" id="image6" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/ZHJMphT.jpeg" alt="Image 7" id="image7" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/pbYA8AB.jpeg" alt="Image 8" id="image8" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/jEFcDfE.jpeg" alt="Image 9" id="image9" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/4uwJAMo.jpeg" alt="Image 10" id="image10" class="draggable" draggable="true">
-    <img src="https://i.imgur.com/5qMpg45.jpeg" alt="Image 11" id="image11" class="draggable" draggable="true">
+    <img src="https://i.imgur.com/jNDl6cg.jpeg" alt="Image 1" id="image1" class="draggable">
+    <img src="https://i.imgur.com/WC5rwH4.jpeg" alt="Image 2" id="image2" class="draggable">
+    <img src="https://i.imgur.com/t20Ak5b.jpeg" alt="Image 3" id="image3" class="draggable">
+    <img src="https://i.imgur.com/0cPP22V.png" alt="Image 4" id="image4" class="draggable">
+    <img src="https://i.imgur.com/Y0xO0n8.png" alt="Image 5" id="image5" class="draggable">
+    <img src="https://i.imgur.com/2lGPLGo.png" alt="Image 6" id="image6" class="draggable">
+    <img src="https://i.imgur.com/ZHJMphT.jpeg" alt="Image 7" id="image7" class="draggable">
+    <img src="https://i.imgur.com/pbYA8AB.jpeg" alt="Image 8" id="image8" class="draggable">
+    <img src="https://i.imgur.com/jEFcDfE.jpeg" alt="Image 9" id="image9" class="draggable">
+    <img src="https://i.imgur.com/4uwJAMo.jpeg" alt="Image 10" id="image10" class="draggable">
+    <img src="https://i.imgur.com/5qMpg45.jpeg" alt="Image 11" id="image11" class="draggable">
   </div>
 
   <div class="tiers">
-    <div class="tier tier-1" id="tier1" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div class="tier tier-1" id="tier1">
       <h2>S</h2>
     </div>
-    <div class="tier tier-2" id="tier2" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div class="tier tier-2" id="tier2">
       <h2>A</h2>
     </div>
-    <div class="tier tier-3" id="tier3" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div class="tier tier-3" id="tier3">
       <h2>B</h2>
     </div>
-    <div class="tier tier-4" id="tier4" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div class="tier tier-4" id="tier4">
       <h2>D</h2>
     </div>
-    <div class="tier tier-5" id="tier5" ondrop="drop(event)" ondragover="allowDrop(event)">
+    <div class="tier tier-5" id="tier5">
       <h2>F</h2>
     </div>
   </div>
 
   <script>
-    // Enable dragging for desktop
-    const draggables = document.querySelectorAll('.draggable');
-    let draggedImage = null;
-    let touchStartX = 0;
-    let touchStartY = 0;
-    const touchThreshold = 1; // Set threshold to 1px for maximum sensitivity
+    let selectedImage = null;
 
-    draggables.forEach(image => {
-      image.addEventListener('dragstart', (e) => {
-        draggedImage = e.target;
-        e.target.classList.add('dragging');
-      });
-
-      image.addEventListener('dragend', (e) => {
-        e.target.classList.remove('dragging');
-        draggedImage = null;
-      });
-
-      // Touch events for mobile compatibility
-      image.addEventListener('touchstart', (e) => {
-        const touch = e.touches[0];
-        touchStartX = touch.clientX;
-        touchStartY = touch.clientY;
-        image.classList.add('dragging');
-      });
-
-      image.addEventListener('touchmove', (e) => {
-        const touch = e.touches[0];
-        const diffX = Math.abs(touch.clientX - touchStartX);
-        const diffY = Math.abs(touch.clientY - touchStartY);
-
-        // Only initiate dragging if the movement exceeds the threshold
-        if (diffX > touchThreshold || diffY > touchThreshold) {
-          image.style.position = 'absolute';
-          image.style.left = `${touch.clientX - 40}px`; // Adjust for image width/height
-          image.style.top = `${touch.clientY - 40}px`;
+    // Click to select an image
+    const images = document.querySelectorAll('.draggable');
+    images.forEach(image => {
+      image.addEventListener('click', () => {
+        if (selectedImage) {
+          selectedImage.style.border = '2px solid #ccc';  // Remove previous selection border
         }
-      });
-
-      image.addEventListener('touchend', (e) => {
-        image.classList.remove('dragging');
-        const touch = e.changedTouches[0];
-        const dropTarget = document.elementFromPoint(touch.clientX, touch.clientY);
-
-        // Check if drop target is a tier
-        if (dropTarget && dropTarget.classList.contains('tier')) {
-          dropTarget.appendChild(image);
-        }
-
-        // Reset image position after drop
-        image.style.position = '';
-        image.style.left = '';
-        image.style.top = '';
+        selectedImage = image;
+        selectedImage.style.border = '2px solid yellow';  // Highlight the selected image
       });
     });
 
-    // Enable drop functionality
-    function allowDrop(event) {
-      event.preventDefault();
-    }
+    // Click to move the selected image into a tier
+    const tiers = document.querySelectorAll('.tier');
+    tiers.forEach(tier => {
+      tier.addEventListener('click', () => {
+        if (selectedImage) {
+          tier.appendChild(selectedImage);
+          selectedImage.style.border = '2px solid #ccc';  // Remove the highlight after moving
+          selectedImage = null;  // Deselect the image
+        }
+      });
+    });
+  </script>
 
-    function drop(event) {
-      event.preventDefault();
-      const tier = event.target;
-
-      // Avoid dropping on the tier's title
-      if (tier.className.includes('tier') && tier !== event.target.closest('.tier')) return;
-
-      //
+  <a href="index.html" class="niga">Back to Index</a>
+</body>
+</html>
