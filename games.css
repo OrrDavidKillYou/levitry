@@ -1,0 +1,25 @@
+.links {
+  display: flex;
+  justify-content: space-around;
+  margin-right: 100px;
+}
+
+.links a {
+  color: crimson;             
+  text-decoration: none;               
+}
+
+body {
+  color: crimson;
+  background-color: black;
+}
+.h {
+text-decoration:underline;
+color:teal;
+}
+.table {
+color:#27F557;
+}
+.tableall {
+font-size:40px;
+}
