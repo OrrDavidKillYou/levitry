@@ -20,6 +20,7 @@ color:teal;
 .table {
 color:#27F557;
 border-collapse: collapse;
+  border: 2px solid crimson;
 }
 .tableall {
 font-size:40px;
