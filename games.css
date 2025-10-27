@@ -29,3 +29,6 @@ td, th{
   border-collapse: collapse;
   border: 2px solid crimson;
 }
+.annoying{
+  height:75px;
+  width:auto;
