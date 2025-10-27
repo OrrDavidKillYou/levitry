@@ -19,6 +19,7 @@ color:teal;
 }
 .table {
 color:#27F557;
+border-collapse: collapse;
 }
 .tableall {
 font-size:40px;
